@@ -4,26 +4,36 @@ import Cover from "../../Shared/Cover/Cover";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import useMenu from "../../../Hooks/useMenu";
-import FoodCard from "../../../components/FoodCard/FoodCard";
 import OrderTab from "../OrderTab/OrderTab";
+import { useParams } from "react-router";
+import { Helmet } from "react-helmet-async";
 
 const Order = () => {
-  const [tadIndex, setTabIndex] = useState(0);
+  const categories = ["salad", "pizza", "soup", "desserts", "drinks"];
+  const { category } = useParams();
+  console.log(category);
+  const initialIndex = categories.indexOf(category);
+  const [tadIndex, setTabIndex] = useState(initialIndex);
   const [menu] = useMenu();
+
   const desserts = menu.filter((item) => item.category === "dessert");
   const soup = menu.filter((item) => item.category === "soup");
   const salad = menu.filter((item) => item.category === "salad");
   const pizza = menu.filter((item) => item.category === "pizza");
   const drinks = menu.filter((item) => item.category === "drinks");
+
   return (
     <div>
+      <Helmet>
+        <title>Bistro Boss | Order Food</title>
+      </Helmet>
       <Cover img={orderCoverImg} title="Order Food"></Cover>
       <Tabs
         className="my-20 "
         defaultIndex={tadIndex}
         onSelect={(index) => setTabIndex(index)}
       >
-        <TabList className={"text-yellow-700"}>
+        <TabList>
           <Tab>Salad</Tab>
           <Tab>Pizza</Tab>
           <Tab>Soups</Tab>
