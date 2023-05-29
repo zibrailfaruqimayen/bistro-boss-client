@@ -12,7 +12,6 @@ const SocialLogin = () => {
   const from = location.state?.from?.pathname || "/";
 
   const handleGoogleSignIn = () => {
-    console.log("btn click");
     googleSignIn().then((result) => {
       const loggedInUser = result.user;
       console.log(loggedInUser);
